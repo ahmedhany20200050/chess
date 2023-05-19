@@ -20,3 +20,10 @@ def evaluate_board(board):
             else:
                 score -= value
     return score
+
+# Generate legal moves
+def get_legal_moves(board):
+    legal_moves = []
+    for move in board.legal_moves:
+        legal_moves.append(str(move))
+    return legal_moves
