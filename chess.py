@@ -54,3 +54,16 @@ def get_legal_moves(board):
     for move in board.legal_moves:
         legal_moves.append(str(move))
     return legal_moves
+
+# Choose the best move for AI agent
+def choose_move(board, depth):
+    best_move = None
+    max_eval = float('-inf')
+    for move in get_legal_moves(board):
+        board.push(chess.Move.from_uci(move))
+        eval = minimax(board, depth-1, float('-inf'), float('inf'), False)
+        board.pop()
+        if eval > max_eval:
+            max_eval = eval
+            best_move = move
+    return best_move
