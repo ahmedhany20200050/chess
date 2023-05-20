@@ -1,4 +1,6 @@
 import chess
+import random
+import time
 
 def evaluate_board(board):
     # Simple evaluation function that just counts the material difference
@@ -67,3 +69,30 @@ def choose_move(board, depth):
             max_eval = eval
             best_move = move
     return best_move
+
+
+    # Make a random move for the computer player
+def make_random_move(board):
+    legal_moves = list(board.legal_moves)
+    random_move = random.choice(legal_moves)
+    board.push(random_move)
+
+
+# Play a game against the AI agent
+while not board.is_game_over():
+    if board.turn == chess.WHITE:
+        # AI agent's turn
+        print("AI agent is thinking...")
+        time.sleep(3) # Delay of 3 seconds
+        move = choose_move(board, 2) # Depth of 2 for minimax search
+        print("AI agent chooses move:", move)
+        board.push(chess.Move.from_uci(move))
+    else:
+        time.sleep(3)
+        # Computer player's turn
+        make_random_move(board)
+        print("Computer player chooses move.")
+        
+    print(board)
+
+print(board.result())
